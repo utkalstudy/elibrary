@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-Library - MPC Autonomous College</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0073e6, #005bb5);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      color: #0073e6;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    ul {
+      text-align: left;
+      margin-left: 20px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .btn {
+      padding: 15px;
+      font-size: 18px;
+      background: #0073e6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #005bb5;
+    }
+
+    /* Chatbot UI */
+    .chat-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0073e6;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 24px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .chatbot-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 350px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .chat-header {
+      background: #0073e6;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .chat-body {
+      height: 250px;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-footer {
+      padding: 10px;
+      display: flex;
+      gap: 5px;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .send-btn {
+      background: #0073e6;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .message {
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+
+    .bot {
+      background: #0073e6;
+      color: white;
+      align-self: flex-start;
+    }
+
+    .user {
+      background: #ff6600;
+      color: white;
+      align-self: flex-end;
+    }
+
+    .btn-option {
+      background: #0073e6;
+      color: white;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .btn-option:hover {
+      background: #ff6600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    📚 E-LIBRARY - MAHARAJA PURNA CHANDRA AUTONOMOUS COLLEGE
+  </div>
+
+  <div class="container">
+    <h2>📖 Welcome to Our E-Library</h2>
+    <p>
+      The <strong>E-Library of Maharaja Purna Chandra Autonomous College, Baripada</strong>, serves as a digital knowledge hub for students, faculty, and researchers. It provides access to a vast collection of academic resources, e-books, research papers, journals, and multimedia content, promoting self-learning and advanced research opportunities.
+    </p>
+
+    <h2>🔍 Navigation</h2>
+    <div class="box">
+      <button class="btn" onclick="redirect('plus2')">+2</button>
+      <button class="btn" onclick="redirect('plus3')">+3</button>
+      <button class="btn" onclick="redirect('mca')">MCA</button>
+      <button class="btn" onclick="redirect('mba')">MBA</button>
+    </div>
+
+    <h2>✨ Features of the E-Library</h2>
+    <ul>
+      <li><strong>Digital Resources Collection</strong> – Thousands of e-books, journals, and research papers.</li>
+      <li><strong>Remote Access & User Authentication</strong> – Secure login system for faculty and students.</li>
+      <li><strong>Advanced Search & Categorization</strong> – Search by subject, author, or publication year.</li>
+      <li><strong>Multimedia Learning Resources</strong> – Video lectures, tutorials, and virtual labs.</li>
+      <li><strong>Subscription to Online Journals & Databases</strong> – Access to IEEE, Springer, Elsevier, etc.</li>
+      <li><strong>E-Books and Digital Libraries Integration</strong> – Collaboration with NDL and open-access resources.</li>
+      <li><strong>Computerized Library Management System</strong> – Automated book issuing and cataloging.</li>
+      <li><strong>Research & Plagiarism Detection Tools</strong> – Integration of Turnitin and Grammarly.</li>
+      <li><strong>Student & Faculty Support Services</strong> – Online help desk and digital literacy programs.</li>
+    </ul>
+
+    <h2>📌 Conclusion</h2>
+    <p>
+      The <strong>E-Library of Maharaja Purna Chandra Autonomous College, Baripada</strong>, is a step towards <strong>modern digital education</strong>. By integrating technology with education, it empowers students and faculty with unlimited knowledge access, enhancing research capabilities and academic excellence.
+    </p>
+  </div>
+
+  <!-- Chat Icon -->
+  <div class="chat-icon" onclick="toggleChat()">💬</div>
+
+  <!-- Chatbot -->
+  <div class="chatbot-container" id="chatbot">
+    <div class="chat-header">📚 Library Chatbot <span style="float:right;cursor:pointer;" onclick="toggleChat()">✖</span></div>
+    <div class="chat-body" id="chat-body">
+      <div class="message bot">Hi there! Ask me about books 📖</div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chat-input" class="chat-input" placeholder="Ask me anything..." onkeypress="handleKeyPress(event)">
+      <button class="send-btn" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <script>
+    function redirect(page) {
+      window.location.href = page + ".html";
+    }
+
+    function toggleChat() {
+      const bot = document.getElementById("chatbot");
+      bot.style.display = bot.style.display === "none" || bot.style.display === "" ? "flex" : "none";
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === "Enter") sendMessage();
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("chat-input");
+      const text = input.value.trim();
+      if (!text) return;
+      appendMessage(text, "user");
+      input.value = "";
+      setTimeout(() => reply(text.toLowerCase()), 600);
+    }
+
+    function appendMessage(msg, type) {
+      const msgDiv = document.createElement("div");
+      msgDiv.classList.add("message", type);
+      msgDiv.textContent = msg;
+      document.getElementById("chat-body").appendChild(msgDiv);
+      document.getElementById("chat-body").scrollTop = document.getElementById("chat-body").scrollHeight;
+    }
+
+    function reply(query) {
+      const body = document.getElementById("chat-body");
+      if (query.includes("book")) {
+        appendMessage("Which category are you looking for?", "bot");
+        addOption("📘 +2", "plus2");
+        addOption("📗 +3", "plus3");
+        addOption("📙 MCA", "mca");
+        addOption("📕 MBA", "mba");
+      } else {
+        appendMessage("Sorry, I didn't understand that. Try asking for 'book'.", "bot");
+      }
+    }
+
+    function addOption(text, page) {
+      const btn = document.createElement("div");
+      btn.className = "btn-option";
+      btn.textContent = text;
+      btn.onclick = () => window.location.href = page + ".html";
+      document.getElementById("chat-body").appendChild(btn);
+    }
+  </script>
+
+</body>
+</html>
