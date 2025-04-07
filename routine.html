@@ -66,11 +66,13 @@
       padding: 4px;
       text-align: center;
       border: 1px solid #333;
+      cursor: pointer;
     }
 
     th {
       background-color: #c8e6c9;
       color: black;
+      cursor: default;
     }
 
     .class-title {
@@ -110,6 +112,7 @@
 
       th, td {
         padding: 3px;
+        cursor: default;
       }
 
       .page-break {
@@ -147,6 +150,7 @@
       <option value="4">Period 4</option>
       <option value="5">Period 5</option>
     </select>
+
     <select id="faculty" required>
       <option value="">Faculty Name</option>
       <option>Binay</option>
@@ -161,7 +165,7 @@
       <option>Jajati</option>
       <option>Debasish</option>
     </select>
-    </select>
+
     <select id="subject" required>
       <option value="">Subject</option>
       <option>CNS</option>
@@ -178,11 +182,8 @@
       <option>N LAB</option>
       <option>MPMC LAB</option>
       <option>DBMS LAB</option>
-      </select>
-    
     </select>
-   
-    
+
     <button type="submit">Add</button>
   </form>
 
@@ -273,7 +274,10 @@
             tbody += `<tr><td>${day}</td>`;
             for (let i = 0; i < 5; i++) {
               const value = routine[day]?.[i] || "";
-              tbody += `<td>${value}</td>`;
+              const cellValue = value
+                ? `<span onclick="deleteEntry('${cls}', '${day}', ${i})">${value}</span>`
+                : "";
+              tbody += `<td>${cellValue}</td>`;
             }
             tbody += "</tr>";
           }
@@ -285,6 +289,13 @@
       });
 
       container.appendChild(wrapper);
+    }
+
+    function deleteEntry(cls, day, period) {
+      if (confirm(`Are you sure you want to delete the entry for ${cls}, ${day}, Period ${period + 1}?`)) {
+        delete routineData[cls][day][period];
+        renderTables();
+      }
     }
 
     renderTables();
