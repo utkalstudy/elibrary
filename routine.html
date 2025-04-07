@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Routine Generator - Nilachal Polytechnic</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      color: black;
+      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+    }
+
+    .print-header {
+      text-align: center;
+      margin-bottom: 5px;
+      color: black;
+    }
+
+    .print-header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .print-header h2 {
+      margin: 2px 0;
+      font-size: 18px;
+    }
+
+    .print-header h3 {
+      margin: 2px 0 10px;
+      font-size: 16px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      padding: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      margin: 10px 0;
+      border-collapse: collapse;
+      page-break-inside: avoid;
+      background-color: white;
+      color: black;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 4px;
+      text-align: center;
+      border: 1px solid #333;
+    }
+
+    th {
+      background-color: #c8e6c9;
+      color: black;
+    }
+
+    .class-title {
+      margin-top: 15px;
+      font-size: 16px;
+      color: black;
+      text-align: center;
+    }
+
+    .print-btn {
+      margin: 20px auto;
+      display: block;
+    }
+
+    @media print {
+      body {
+        color: black;
+        background-color: white;
+      }
+
+      form, .print-btn {
+        display: none;
+      }
+
+      .print-header {
+        margin-top: 0;
+      }
+
+      .class-title {
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      table {
+        font-size: 11px;
+      }
+
+      th, td {
+        padding: 3px;
+      }
+
+      .page-break {
+        page-break-before: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <form id="routineForm">
+    <select id="className" required>
+      <option value="">Select Class</option>
+      <option value="2nd CSE A">2nd CSE A</option>
+      <option value="2nd CSE B">2nd CSE B</option>
+      <option value="3rd CSE A">3rd CSE A</option>
+      <option value="3rd CSE B">3rd CSE B</option>
+    </select>
+
+    <select id="day" required>
+      <option value="">Select Day</option>
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+      <option>Saturday</option>
+    </select>
+
+    <select id="period" required>
+      <option value="">Select Period</option>
+      <option value="1">Period 1</option>
+      <option value="2">Period 2</option>
+      <option value="3">Period 3</option>
+      <option value="4">Period 4</option>
+      <option value="5">Period 5</option>
+    </select>
+    <select id="faculty" required>
+      <option value="">Faculty Name</option>
+      <option>a</option>
+      <option>b</option>
+      <option>c</option>
+      <option>d</option>
+      <option>e</option>
+      <option>f</option>
+    </select>
+   
+    <input type="text" id="subject" placeholder="Subject" required>
+    <button type="submit">Add</button>
+  </form>
+
+  <button class="print-btn" onclick="window.print()">🖨️ Print Routine</button>
+
+  <div id="routinesContainer"></div>
+
+  <script>
+    const classList = ["2nd CSE A", "2nd CSE B", "3rd CSE A", "3rd CSE B"];
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const periods = {
+      "2nd CSE A": ["10:20–11:20", "11:20–12:20", "12:50–01:50", "01:50–02:50", "02:50–03:50"],
+      "2nd CSE B": ["10:20–11:20", "11:20–12:20", "12:50–01:50", "01:50–02:50", "02:50–03:50"],
+      "3rd CSE A": ["10:20–11:20", "11:20–12:20", "12:20–01:20", "01:50–02:50", "02:50–03:50"],
+      "3rd CSE B": ["10:20–11:20", "11:20–12:20", "12:20–01:20", "01:50–02:50", "02:50–03:50"]
+    };
+
+    const routineData = {};
+    classList.forEach(cls => routineData[cls] = {});
+
+    const form = document.getElementById("routineForm");
+    const container = document.getElementById("routinesContainer");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const className = document.getElementById("className").value;
+      const day = document.getElementById("day").value;
+      const periodIndex = parseInt(document.getElementById("period").value) - 1;
+      const faculty = document.getElementById("faculty").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+
+      for (const cls of classList) {
+        if (routineData[cls][day] && routineData[cls][day][periodIndex]) {
+          if (routineData[cls][day][periodIndex].includes(`(${faculty})`)) {
+            alert(`⚠️ Faculty ${faculty} is already scheduled in ${cls} on ${day} during Period ${periodIndex + 1}.`);
+            return;
+          }
+        }
+      }
+
+      if (!routineData[className][day]) {
+        routineData[className][day] = {};
+      }
+
+      routineData[className][day][periodIndex] = `${subject} (${faculty})`;
+      form.reset();
+      renderTables();
+    });
+
+    function renderTables() {
+      container.innerHTML = "";
+
+      const grouped = [
+        ["2nd CSE A", "2nd CSE B"],
+        ["3rd CSE A", "3rd CSE B"]
+      ];
+
+      const wrapper = document.createElement("div");
+
+      const header = document.createElement("div");
+      header.className = "print-header";
+      header.innerHTML = `
+        <h1>Nilachal Polytechnic</h1>
+        <h2>Time Table</h2>
+        <h3>Department of Computer Science and Engineering</h3>
+      `;
+      wrapper.appendChild(header);
+
+      grouped.forEach(group => {
+        group.forEach(cls => {
+          const routine = routineData[cls] || {};
+          const title = document.createElement("h3");
+          title.className = "class-title";
+          title.textContent = `Routine for ${cls}`;
+          wrapper.appendChild(title);
+
+          const table = document.createElement("table");
+
+          let thead = "<thead><tr><th>Day \\ Period</th>";
+          periods[cls].forEach((time, idx) => {
+            thead += `<th>P${idx + 1}<br>${time}</th>`;
+          });
+          thead += "</tr></thead>";
+
+          let tbody = "<tbody>";
+          for (const day of days) {
+            tbody += `<tr><td>${day}</td>`;
+            for (let i = 0; i < 5; i++) {
+              const value = routine[day]?.[i] || "";
+              tbody += `<td>${value}</td>`;
+            }
+            tbody += "</tr>";
+          }
+          tbody += "</tbody>";
+
+          table.innerHTML = thead + tbody;
+          wrapper.appendChild(table);
+        });
+      });
+
+      container.appendChild(wrapper);
+    }
+
+    renderTables();
+  </script>
+
+</body>
+</html>
