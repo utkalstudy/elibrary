@@ -210,9 +210,9 @@
     <h2>🔍 Navigation</h2>
     <div class="box">
       <button class="btn" onclick="redirect('plus2')">+2</button>
-      <button class="btn" onclick="redirect('plus3')">+3</button>
-      <button class="btn" onclick="redirect('mca')">MCA</button>
-      <button class="btn" onclick="redirect('mba')">MBA</button>
+      <button class="btn" onclick="redirect('diploma')">+3</button>
+      <button class="btn" onclick="redirect('btech')">MCA</button>
+      <button class="btn" onclick="redirect('competitive')">MBA</button>
     </div>
 
     <h2>✨ Features of the E-Library</h2>
@@ -285,9 +285,9 @@
       if (query.includes("book")) {
         appendMessage("Which category are you looking for?", "bot");
         addOption("📘 +2", "plus2");
-        addOption("📗 +3", "plus3");
-        addOption("📙 MCA", "mca");
-        addOption("📕 MBA", "mba");
+        addOption("📗 Diploma", "diploma");
+        addOption("📙 B Tech", "btech");
+        addOption("📕 Competitive", "competitive");
       } else {
         appendMessage("Sorry, I didn't understand that. Try asking for 'book'.", "bot");
       }
